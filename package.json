@@ -1,0 +1,20 @@
+{
+  "name": "inktank",
+  "version": "1.0.0",
+  "description": "This is the graduation project for Coyotiv School of Software Engineering. Inktank is an app for tattoo enthusiasts to explore inspiring tattoos and meet tattoo artists and studios around the world.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dilekyoruk/inktank.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MITg",
+  "bugs": {
+    "url": "https://github.com/dilekyoruk/inktank/issues"
+  },
+  "homepage": "https://github.com/dilekyoruk/inktank#readme"
+}
