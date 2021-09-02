@@ -5,4 +5,4 @@ class Comment {
   }
 }
 
-module.exports = Co cfm nt;
+module.exports = Comme nt;
