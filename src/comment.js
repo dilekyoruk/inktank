@@ -5,4 +5,4 @@ class Comment {
   }
 }
 
-module.exports = omme  mnt;
+module.exports = ogi mnt;
