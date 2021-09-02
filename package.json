@@ -2,9 +2,23 @@
   "name": "inktank",
   "version": "1.0.0",
   "description": "This is the graduation project for Coyotiv School of Software Engineering. Inktank is an app for tattoo enthusiasts to explore inspiring tattoos and meet tattoo artists and studios around the world.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "lint-staged",
+    "start": "node src/index.js",
+    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo \"[Husky] pre-commit\""
+    }
+  },
+  "lint-staged": {
+    "./**/*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   },
   "repository": {
     "type": "git",
@@ -12,9 +26,20 @@
   },
   "keywords": [],
   "author": "",
-  "license": "MITg",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dilekyoruk/inktank/issues"
   },
-  "homepage": "https://github.com/dilekyoruk/inktank#readme"
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.3.2"
+  }
 }
