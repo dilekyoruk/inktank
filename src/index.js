@@ -39,7 +39,4 @@ emily.addBio("I'm a minimalist tattoo artist");
 
 // check dynamic property
 console.log(emily.profile);
-{
 
-
-}
