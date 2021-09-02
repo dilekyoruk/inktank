@@ -8,4 +8,4 @@ class Photo {
   }
 }
 
-module.exports = P hoto;
+module.exports = Photo;
