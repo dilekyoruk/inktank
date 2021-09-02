@@ -5,4 +5,4 @@ class Comment {
   }
 }
 
-module.exports = ogi mnt;
+module.exports = Co cfm nt;
