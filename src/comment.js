@@ -5,4 +5,4 @@ class Comment {
   }
 }
 
-module.exports = Comme nt;
+module.exports = Commnt;
