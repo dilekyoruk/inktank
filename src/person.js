@@ -5,27 +5,41 @@ class Person {
     this.email = email;
     this.savedEvents = [];
     this.savedPhotos = [];
-    this.followedTattooArtists = [];
+    this.following = [];
     this.comments = [];
     this.likedPhotos = [];
+    this.bookings = [];
   }
 
-  followTattooArtist(tattooArtist) {
-    this.followedTattooArtists.push(tattooArtist);
+  follow(tattooArtist) {
+    this.following.push(tattooArtist);
     tattooArtist.followers.push(this);
   }
 
   likePhoto(photo) {
     this.likedPhotos.push(photo);
-    photo.likedBy.push(this)
+    photo.likedBy.push(this);
   }
 
   savePhoto(photo) {
     this.savedPhotos.push(photo);
   }
 
-  addComment(comment) {
+  addComment(photo, comment) {
+    photo.commentBy.push(this.name);
+    photo.comments.push(comment);
     this.comments.push(comment);
+  }
+
+  rateArtist(artist, rating) {
+    artist.ratings.push(rating);
+  }
+
+  book(artist, time) {
+    this.bookings.push(artist.name, time);
+    artist.bookings.push(this.name, time);
+    const index = artist.availableTimes.indexOf(time);
+    artist.availableTimes.splice(index,1)
   }
 }
 

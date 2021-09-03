@@ -5,6 +5,7 @@ class Photo {
     this.location = location;
     this.likedBy = [];
     this.commentBy = [];
+    this.comments = []
   }
 }
 
