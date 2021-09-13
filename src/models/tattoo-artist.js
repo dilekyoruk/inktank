@@ -21,7 +21,7 @@ class TattooArtist {
     this.bio = bio;
   }
 
-  addAvalibiliy(time) {
+  addAvailability(time) {
     this.availableTimes.push(time);
   }
 
@@ -36,11 +36,11 @@ class TattooArtist {
   #### Photos (${this.photos.length})
 
   ${this.photos
-        .map(
-          photo => `## ${photo.filename}
+    .map(
+      photo => `## ${photo.filename}
   💜 ${photo.likedBy.map(person => person.name).join(', ')} `
-        )
-        .join('\n')}
+    )
+    .join('\n')}
   `;
   }
 
@@ -54,7 +54,7 @@ class TattooArtist {
      }
      return 'NO_RATING'; */
 
-    if (!this.ratings) return "No_rating"
+    if (!this.ratings) return 'No_rating';
     return this.ratings.reduce((a, b) => a + b) / this.ratings.length;
   }
 }

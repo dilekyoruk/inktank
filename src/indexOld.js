@@ -39,10 +39,9 @@ emily.addBio("I'm a minimalist tattoo artist");
 // console.log(emily.profile);
 
 // ----- check rating ---------
-mark.rateArtist(emily, 5)
+mark.rateArtist(emily, 5);
 kate.rateArtist(emily, 3);
-console.log(emily.rating)
-
+console.log(emily.rating);
 
 // ----- check booking ---------
 emily.addAvalibiliy('30 Aug 2021');
@@ -55,7 +54,7 @@ console.log(mark.bookings)
 console.log(emily.availableTimes); */
 
 // ----- check comment ---------
-mark.addComment(photo, "This is awesome!")
+mark.addComment(photo, 'This is awesome!');
 kate.addComment(photo, 'I like this!');
-console.log(photo.comments)
+console.log(photo.comments);
 console.log(photo.commentBy);

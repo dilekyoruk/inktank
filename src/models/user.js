@@ -1,19 +1,17 @@
-class Person {
+class User {
   constructor(name, location, email) {
     this.name = name;
     this.location = location;
     this.email = email;
-    this.savedEvents = [];
     this.savedPhotos = [];
-    this.following = [];
-    this.comments = [];
+    this.followedArtists = [];
     this.likedPhotos = [];
     this.bookings = [];
   }
 
   follow(tattooArtist) {
-    this.following.push(tattooArtist);
-    tattooArtist.followers.push(this);
+    this.followedArtists.push(tattooArtist.name);
+    tattooArtist.followers.push(this.name);
   }
 
   likePhoto(photo) {
@@ -28,7 +26,6 @@ class Person {
   addComment(photo, comment) {
     photo.commentBy.push(this.name);
     photo.comments.push(comment);
-    this.comments.push(comment);
   }
 
   rateArtist(artist, rating) {
@@ -43,4 +40,4 @@ class Person {
   }
 }
 
-module.exports = Person;
+module.exports = User;
