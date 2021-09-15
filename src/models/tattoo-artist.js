@@ -1,31 +1,88 @@
+const mongoose = require('mongoose');
+const autopopulate = require('mongoose-autopopulate');
+
+const tattooArtistSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  bio: String,
+  profilePhoto: String,
+  photos: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Photo',
+      autopopulate: true,
+    },
+  ],
+  followers: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      autopopulate: true,
+    },
+  ],
+  ratings: [
+    {
+      type: Number,
+      autopopulate: true,
+    },
+  ],
+  customerBookings: [
+    {
+      type: String,
+    },
+  ],
+  reviews: [
+    {
+      type: String,
+      autopopulate: true,
+    },
+  ],
+  availableTimes: [
+    {
+      type: Number,
+    },
+  ],
+});
+
 class TattooArtist {
-  constructor(name, location, email) {
-    this.name = name;
-    this.location = location;
-    this.email = email;
-    this.photos = [];
-    this.followers = [];
-    this.ratings = [];
-    this.profilePhoto = '';
-    this.bio = '';
-    this.reviews = [];
-    this.availableTimes = [];
-    this.bookings = []; // change the name
-  }
-
-  addPhoto(photo) {
+  async addPhoto(photo) {
     this.photos.push(photo);
+
+    await this.save();
   }
 
-  addBio(bio) {
+  async addBio(bio) {
     this.bio = bio;
+
+    await this.save();
   }
 
-  addAvailability(time) {
+  async addAvailability(time) {
     this.availableTimes.push(time);
-  }
 
-  get profile() {
+    await this.save();
+  }
+}
+
+tattooArtistSchema.loadClass(TattooArtist);
+tattooArtistSchema.plugin(autopopulate);
+module.exports = mongoose.model('TattooArtist', tattooArtistSchema);
+
+
+
+/*  get profile() {
     return `
   # ${this.name} (${this.location})
 
@@ -49,13 +106,10 @@ class TattooArtist {
   }
 
   get rating() {
-    /*  if (this.ratings !== null && this.ratings.length > 0) {
-       return this.ratings.reduce((a, b) => a + b) / this.ratings.length;
-     }
-     return 'NO_RATING'; */
 
     if (!this.ratings) return 'No_rating';
     return this.ratings.reduce((a, b) => a + b) / this.ratings.length;
   }
 }
 module.exports = TattooArtist;
+ */
