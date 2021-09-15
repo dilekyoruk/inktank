@@ -3,22 +3,42 @@ const express = require('express');
 const router = express.Router();
 const TattooArtist = require('../models/tattoo-artist');
 
-const alex = new TattooArtist('alex', 'paris', 'a@gmail.com');
-const emily = new TattooArtist('emily', 'berlin', 'e@gmail.com');
-const tim = new TattooArtist('tim', 'london', 't@gmail.com');
 
-const tattooArtists = [alex, emily, tim];
+/* GET tattoo artists listing. */
+router.get('/', async (req, res) => {
+  const query = {};
 
-router.get('/', (req, res, next) => {
-  const result = tattooArtists;
   if (req.query.name) {
-    res.send(tattooArtists.find(user => user.name == req.query.name));
-  } else {
-    res.send(result);
+    query.name = req.query.name;
   }
+  res.send(await TattooArtist.find(query));
 });
 
-router.get('/:id', (req, res, next) => {
+/* GET tattoo artist */
+router.get('/:id', async (req, res) => {
+  const tattooArtist = await TattooArtist.findById(req.params.id);
+
+  if (!tattooArtist) return res.sendStatus(404);
+
+  res.send(tattooArtist);
+});
+
+/* ADD tattoo artist */
+router.post('/', async (req, res) => {
+  const newTattooArtist = await TattooArtist.create(req.body);
+
+  res.send(newTattooArtist);
+});
+
+/* DELETE tattoo artist */
+router.delete('/:id', async (req, res) => {
+  await TattooArtist.findByIdAndDelete(req.params.id);
+
+  res.sendStatus(200);
+});
+
+
+/* router.get('/:id', (req, res, next) => {
   const tattooArtist = tattooArtists[req.params.id];
   if (tattooArtist) {
     res.render('profile', {
@@ -32,26 +52,26 @@ router.get('/:id', (req, res, next) => {
   } else {
     res.sendStatus(404);
   }
-});
+}); */
 
 router.post('/:id/rating', (req, res, next) => {
   const { rating } = req.body;
-  const tattooArtist = tattooArtists[req.params.id];
+  const tattooArtist = TattooArtist[req.params.id];
   if (!tattooArtist) {
     res.sendStatus(404);
   }
-  tattooArtist.ratings.push(rating);
+  TattooArtist.ratings.push(rating);
   res.sendStatus(200);
 });
 
 router.post('/', (req, res, next) => {
   const tattooArtist = req.body;
-  tattooArtists.push(tattooArtist);
+  TattooArtist.push(tattooArtist);
   res.sendStatus(200);
 });
 
 router.post('/:id/available-times', (req, res, next) => {
-  const tattooArtist = tattooArtists[req.params.id];
+  const tattooArtist = TattooArtist[req.params.id];
   if (!tattooArtist) {
     res.sendStatus(404);
   } else {
@@ -59,24 +79,5 @@ router.post('/:id/available-times', (req, res, next) => {
     res.sendStatus(200);
   }
 });
-
-/* router.post('/upload', (req, res, next) => {
-  if(req.file)
-})
- */
-
-/* router.get('/', function (req, res, next) {
-  const alex = new TattooArtist('alex', 'paris', 'a@gmail.com');
-  const emily = new TattooArtist('emily', 'berlin', 'e@gmail.com');
-  const tim = new TattooArtist('tim', 'london', 't@gmail.com');
-  res.send([alex, emily, tim]);
-});
- */
-
-/* router.get('/alex', function (req, res, next) {
-  const alex = new TattooArtist('alex', 'paris', 'a@gmail.com');
-
-  res.render('tattoo-artist', { title: alex, email: alex.email });
-}); */
 
 module.exports = router;
