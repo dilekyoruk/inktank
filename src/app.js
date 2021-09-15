@@ -4,10 +4,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const multer = require('multer');
-const { profile } = require('console');
+// const { profile } = require('console');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const tattooArtistsRouter = require('./routes/tattoo-artists');
+require('./database-connection');
 
 // storage engine
 const storage = multer.diskStorage({
