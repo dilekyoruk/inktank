@@ -1,0 +1,23 @@
+@startuml Inktank Class Diagram
+class Person {
+name: String
+location: String
+email: String
+savedPhotos: Array
+savedEvents: Array
+followedArtists: Array
+bookings: Array
+likedPhotos: Array
+follow(tattooArtist: TattooArtist)
+savePhoto(photo: Photo)
+likePhoto(photo: Photo)
+addEvent(event: Event)
+
+
+
+}
+
+class TattooArtist{
+
+}
+@enduml
