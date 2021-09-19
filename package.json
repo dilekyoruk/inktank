@@ -2,11 +2,10 @@
   "name": "inktank",
   "version": "1.0.0",
   "description": "This is the graduation project for Coyotiv School of Software Engineering. Inktank is an app for tattoo enthusiasts to explore inspiring tattoos and meet tattoo artists and studios around the world.",
-  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "lint-staged",
-    "start": "node src/index.js",
+    "start": "node ./bin/www",
     "prepare": "husky install"
   },
   "husky": {
@@ -29,6 +28,17 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dilekyoruk/inktank/issues"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^6.0.5",
+    "mongoose-autopopulate": "^0.15.0",
+    "morgan": "~1.9.1",
+    "multer": "^1.4.3",
+    "pug": "2.0.0-beta11"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
