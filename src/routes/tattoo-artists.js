@@ -1,8 +1,20 @@
 const express = require('express');
+const multer = require('multer');
+const path = require('path');
+const TattooArtist = require('../models/tattoo-artist');
+const Photo = require('../models/photo');
 
 const router = express.Router();
-const TattooArtist = require('../models/tattoo-artist');
 
+// storage engine
+const storage = multer.diskStorage({
+  destination: 'uploads/',
+  filename: (req, file, cb) => cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`),
+});
+
+const upload = multer({
+  storage,
+});
 
 /* GET tattoo artists listing. */
 router.get('/', async (req, res) => {
@@ -37,46 +49,47 @@ router.delete('/:id', async (req, res) => {
   res.sendStatus(200);
 });
 
-
-/* router.get('/:id', (req, res, next) => {
-  const tattooArtist = tattooArtists[req.params.id];
-  if (tattooArtist) {
-    res.render('profile', {
-      name: tattooArtist.name,
-      location: tattooArtist.location,
-      followerCount: tattooArtist.followers ? tattooArtist.followers.length : 0,
-      photoCount: tattooArtist.photos ? tattooArtist.photos.length : 0,
-      reviewCount: tattooArtist.reviews ? tattooArtist.reviews.length : 0,
-      commentCount: tattooArtist.comments ? tattooArtist.comments.length : 0,
-    });
-  } else {
-    res.sendStatus(404);
-  }
-}); */
-
-router.post('/:id/rating', (req, res, next) => {
-  const { rating } = req.body;
-  const tattooArtist = TattooArtist[req.params.id];
+/* GET tattoo artist's rating */
+router.get('/:id/ratings', async (req, res, next) => {
+  const tattooArtist = await TattooArtist.findById(req.params.id);
   if (!tattooArtist) {
     res.sendStatus(404);
   }
-  TattooArtist.ratings.push(rating);
-  res.sendStatus(200);
+  const { rating } = tattooArtist;
+  console.log(tattooArtist.rating);
+  res.json(rating);
+  // res.send({rating})
 });
 
-router.post('/', (req, res, next) => {
-  const tattooArtist = req.body;
-  TattooArtist.push(tattooArtist);
-  res.sendStatus(200);
+/* Get bookings */
+router.get('/:id/bookings', async (req, res, next) => {
+  const tattooArtist = await TattooArtist.findById(req.params.id);
+  if (!tattooArtist) {
+    res.sendStatus(404);
+  }
+  res.send(tattooArtist.customerBookings);
 });
 
-router.post('/:id/available-times', (req, res, next) => {
-  const tattooArtist = TattooArtist[req.params.id];
+/* POST available times YYYY-MM-DDThh:mm */
+router.post('/:id/available-times', async (req, res, next) => {
+  const tattooArtist = await TattooArtist.findById(req.params.id);
   if (!tattooArtist) {
     res.sendStatus(404);
   } else {
     tattooArtist.addAvailability(req.body.time);
     res.sendStatus(200);
+  }
+});
+
+/* POST a photo */
+router.post('/:id/photos', upload.single('photo'), async (req, res) => {
+  const tattooArtist = await TattooArtist.findById(req.params.id);
+  if (!tattooArtist) {
+    res.sendStatus(404);
+  } else {
+    const photo = await Photo.create({ description: req.body.description, filename: `${req.file.filename}` });
+    tattooArtist.addPhoto(photo);
+    res.send(photo);
   }
 });
 
