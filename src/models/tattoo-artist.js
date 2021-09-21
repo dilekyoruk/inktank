@@ -29,7 +29,7 @@ const tattooArtistSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
-      autopopulate: true,
+      autopopulate: { maxDepth: 1 },
     },
   ],
   ratings: [
@@ -40,7 +40,12 @@ const tattooArtistSchema = new mongoose.Schema({
   ],
   customerBookings: [
     {
-      type: String,
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        autopopulate: { maxDepth: 1 },
+      },
+      time: Date,
     },
   ],
   reviews: [
@@ -51,7 +56,7 @@ const tattooArtistSchema = new mongoose.Schema({
   ],
   availableTimes: [
     {
-      type: Number,
+      type: Date,
     },
   ],
 });
@@ -74,42 +79,13 @@ class TattooArtist {
 
     await this.save();
   }
+
+  get rating() {
+    if (!this.ratings) return 'No_rating';
+    return this.ratings.reduce((a, b) => a + b) / this.ratings.length;
+  }
 }
 
 tattooArtistSchema.loadClass(TattooArtist);
 tattooArtistSchema.plugin(autopopulate);
 module.exports = mongoose.model('TattooArtist', tattooArtistSchema);
-
-
-
-/*  get profile() {
-    return `
-  # ${this.name} (${this.location})
-
-  ## Bio: ${this.bio}
-
-  ### Followers (${this.followers.length})
-
-  #### Photos (${this.photos.length})
-
-  ${this.photos
-    .map(
-      photo => `## ${photo.filename}
-  💜 ${photo.likedBy.map(person => person.name).join(', ')} `
-    )
-    .join('\n')}
-  `;
-  }
-
-  set profile(newValue) {
-    throw new Error(`You can not override it`);
-  }
-
-  get rating() {
-
-    if (!this.ratings) return 'No_rating';
-    return this.ratings.reduce((a, b) => a + b) / this.ratings.length;
-  }
-}
-module.exports = TattooArtist;
- */

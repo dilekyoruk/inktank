@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'TattooArtist',
-      autopopulate: true,
+      autopopulate: { maxDepth: 1 },
     },
   ],
   likedPhotos: [
@@ -37,7 +37,12 @@ const userSchema = new mongoose.Schema({
   ],
   tattooBookings: [
     {
-      type: String,
+      tattooArtist: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'TattooArtist',
+        autopopulate: { maxDepth: 1 },
+      },
+      time: Date,
     },
   ],
 });
@@ -72,17 +77,17 @@ class User {
     await this.save();
   }
 
-  async rateArtist(artist, rating) {
-    artist.ratings.push(rating);
+  async rateArtist(tattooArtist, rating) {
+    tattooArtist.ratings.push(rating);
 
-    await artist.save();
+    await tattooArtist.save();
   }
 
   async book(artist, time) {
-    this.bookings.push(artist.name, time);
-    artist.bookings.push(this.name, time);
-    const index = artist.availableTimes.indexOf(time);
-    artist.availableTimes.splice(index, 1);
+    this.tattooBookings.push({ tattooArtist: artist, time });
+    artist.customerBookings.push({ user: this, time });
+    /* const index = artist.availableTimes.indexOf(time);
+    artist.availableTimes.splice(index, 1); */
 
     await artist.save();
     await this.save();
@@ -92,5 +97,3 @@ class User {
 userSchema.loadClass(User);
 userSchema.plugin(autopopulate);
 module.exports = mongoose.model('User', userSchema);
-
-
