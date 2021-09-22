@@ -56,7 +56,8 @@ router.get('/:id/ratings', async (req, res, next) => {
     res.sendStatus(404);
   }
   const { rating } = tattooArtist;
-  console.log(tattooArtist.rating);
+  console.log(JSON.stringify(rating));
+  //console.log(tattooArtist.rating);
   res.json(rating);
   // res.send({rating})
 });

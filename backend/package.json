@@ -7,7 +7,7 @@
     "test-coverage": " jest --collect-coverage --testEnvironment=node --forceExit --maxWorkers=1",
     "lint": "lint-staged",
     "start": "node ./bin/www",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install backend/.husky"
   },
   "husky": {
     "hooks": {

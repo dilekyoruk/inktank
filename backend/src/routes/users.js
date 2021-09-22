@@ -38,7 +38,7 @@ router.delete('/:id', async (req, res) => {
   res.sendStatus(200);
 });
 
-/* FOLLOW tattoo artist */
+/* FOLLOW a tattoo artist */
 router.post('/:id/follow-artist', async (req, res) => {
   const user = await User.findById(req.params.id);
 
