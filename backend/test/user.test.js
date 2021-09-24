@@ -10,7 +10,7 @@ describe('Users endpoints', () => {
       location: 'London',
     };
 
-    const createdUser = (await request(app).post('/users').send(userToCreate)).body;
+    const createdUser = (await request(app).post('/api/users').send(userToCreate)).body;
     expect(createdUser.name).toBe(userToCreate.name);
     expect(createdUser.email).toBe(userToCreate.email);
     expect(createdUser.location).toBe(userToCreate.location);
@@ -18,7 +18,7 @@ describe('Users endpoints', () => {
 
   /* GET user listing */
   it('get request to /users should list users', async () => {
-    const userList = (await request(app).get('/users')).body;
+    const userList = (await request(app).get('/api/users')).body;
     const usersExist = userList.length > 0;
 
     expect(usersExist).toBe(true);
@@ -27,7 +27,7 @@ describe('Users endpoints', () => {
   /* GET user by name */
   it('get request to /users should return user with given name', async () => {
     const username = 'John';
-    const userList = (await request(app).get(`/users?name=${username}`)).body;
+    const userList = (await request(app).get(`/api/users?name=${username}`)).body;
     const usersExist = userList.length > 0;
 
     expect(usersExist).toBe(true);
@@ -37,7 +37,7 @@ describe('Users endpoints', () => {
   /* GET an empty array when user is not exist */
   it('get request to /users should return empty array when user is not exist', async () => {
     const username = `John${Date.now()}`;
-    const userList = (await request(app).get(`/users?name=${username}`)).body;
+    const userList = (await request(app).get(`/api/users?name=${username}`)).body;
     const usersNotExist = userList.length == 0;
 
     expect(usersNotExist).toBe(true);
@@ -51,9 +51,9 @@ describe('Users endpoints', () => {
       location: 'London',
     };
 
-    const createdUser = (await request(app).post('/users').send(userToCreate)).body;
+    const createdUser = (await request(app).post('/api/users').send(userToCreate)).body;
     const userId = createdUser._id;
-    const user = (await request(app).get(`/users/${userId}`)).body;
+    const user = (await request(app).get(`/api/users/${userId}`)).body;
 
     expect(userId).toBe(user._id);
   });
@@ -67,7 +67,7 @@ describe('Users endpoints', () => {
       location: 'London',
     };
 
-    const createdUser = (await request(app).post('/users').send(userToCreate)).body;
+    const createdUser = (await request(app).post('/api/users').send(userToCreate)).body;
     const userId = createdUser._id;
 
     // create the tattoo artist
@@ -76,11 +76,11 @@ describe('Users endpoints', () => {
       email: `Mary${Date.now()}@gmail.com`,
       location: 'Berlin',
     };
-    const createdTattooArtist = (await request(app).post('/tattoo-artists').send(tattooArtistToCreate)).body;
+    const createdTattooArtist = (await request(app).post('/api/tattoo-artists').send(tattooArtistToCreate)).body;
     const tattooArtistId = createdTattooArtist._id;
 
     // follow the tattoo artist
-    const { status } = await request(app).post(`/users/${userId}/follow-artist`).send({ id: tattooArtistId });
+    const { status } = await request(app).post(`/api/users/${userId}/follow-artist`).send({ id: tattooArtistId });
     expect(status).toBe(200);
   });
 });
