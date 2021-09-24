@@ -30,11 +30,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/tattoo-artists', tattooArtistsRouter);
-app.use('/tattoo-artists/profile', express.static('uploads'));
-app.use('/tattoo-artists/photos', express.static('uploads'));
+app.use('/api/', indexRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/tattoo-artists', tattooArtistsRouter);
+app.use('/api/tattoo-artists/profile', express.static('uploads'));
+app.use('/api/tattoo-artists/photos', express.static('uploads'));
 // catch 404 and forward to error handler
 app.use((err, req, res, next) => {
   next(createError(404));
