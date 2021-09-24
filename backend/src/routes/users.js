@@ -42,15 +42,15 @@ router.delete('/:id', async (req, res) => {
 router.post('/:id/follow-artist', async (req, res) => {
   const user = await User.findById(req.params.id);
 
-  if (user) {
-    const tattooArtist = await TattooArtist.findById(req.body.id);
-    if (tattooArtist) {
-      user.follow(tattooArtist);
-      return res.sendStatus(200);
-    }
+  if (!user) {
     return res.sendStatus(404);
   }
-  res.sendStatus(404);
+  const tattooArtist = await TattooArtist.findById(req.body.id);
+  if (tattooArtist) {
+    await user.follow(tattooArtist);
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(404);
 });
 
 /* Rate a tattoo artist */
