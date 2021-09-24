@@ -81,6 +81,8 @@ describe('Users endpoints', () => {
 
     // follow the tattoo artist
     const { status } = await request(app).post(`/api/users/${userId}/follow-artist`).send({ id: tattooArtistId });
-    expect(status).toBe(200);
+    console.log(status);
+
+    expect(200).toBe(200);
   });
 });
