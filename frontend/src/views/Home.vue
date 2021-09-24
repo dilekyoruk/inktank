@@ -1,19 +1,12 @@
-<template lang="pug">
-  .home
-    img(alt="Vue logo" src="../assets/logo.png")
-    HelloWorld(msg="Welcome to Your Vue.js App")
-    div(v-for="user in users") {{ user.name }} has {{ user.savedPhotos.length }} photos
-</template>
-
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
 import axios from 'axios';
+import UserCard from '@/components/user-card.vue';
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld,
+    UserCard,
   },
   data() {
     return {
@@ -27,3 +20,9 @@ export default {
   },
 };
 </script>
+
+<template lang="pug">
+  .home
+    h1 Inktank
+    user-card(v-for="user in users" :user="user")
+</template>
