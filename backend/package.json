@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "This is the graduation project for Coyotiv School of Software Engineering. Inktank is an app for tattoo enthusiasts to explore inspiring tattoos and meet tattoo artists and studios around the world.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --testEnvironment=node --verbose --forceExit --watchAll --maxWorkers=1",
+    "test-coverage": " jest --collect-coverage --testEnvironment=node --forceExit --maxWorkers=1",
     "lint": "lint-staged",
     "start": "node ./bin/www",
-    "prepare": "husky install"
+    "prepare": "cd .. && husky install backend/.husky"
   },
   "husky": {
     "hooks": {
@@ -41,15 +42,20 @@
     "pug": "2.0.0-beta11"
   },
   "devDependencies": {
+    "connect-livereload": "^0.6.1",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jest": "^24.4.2",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^7.0.2",
+    "jest": "^27.2.1",
     "lint-staged": "^11.1.2",
-    "prettier": "^2.3.2"
+    "livereload": "^0.9.3",
+    "prettier": "^2.3.2",
+    "supertest": "^6.1.6"
   }
 }

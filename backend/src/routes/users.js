@@ -38,14 +38,33 @@ router.delete('/:id', async (req, res) => {
   res.sendStatus(200);
 });
 
-/* FOLLOW tattoo artist */
+/* FOLLOW a tattoo artist */
 router.post('/:id/follow-artist', async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+  const tattooArtist = await TattooArtist.findById(req.body.id);
+  if (tattooArtist) {
+    await user.follow(tattooArtist);
+    return res.sendStatus(200);
+  }
+  return res.sendStatus(404);
+});
+
+/* Rate a tattoo artist */
+router.post('/:id/ratings', async (req, res, next) => {
+  if (req.body.rating <= 0 || req.body.rating > 5) {
+    return res.status(400).send('Rating must be between 0-5');
+  }
+
   const user = await User.findById(req.params.id);
 
   if (user) {
     const tattooArtist = await TattooArtist.findById(req.body.id);
     if (tattooArtist) {
-      user.follow(tattooArtist);
+      user.rateArtist(tattooArtist, req.body.rating);
       return res.sendStatus(200);
     }
     return res.sendStatus(404);
@@ -53,10 +72,11 @@ router.post('/:id/follow-artist', async (req, res) => {
   res.sendStatus(404);
 });
 
-router.post('/:id/book', (req, res, next) => {
-  const user = users[req.params.id];
+/* Book a tattoo artist */
+router.post('/:id/bookings', async (req, res, next) => {
+  const user = await User.findById(req.params.id);
   if (user) {
-    const tattooArtist = tattooArtists.find(user => user.name == req.body.tattooArtistName);
+    const tattooArtist = await TattooArtist.findById(req.body.id);
     if (!tattooArtist) {
       return res.sendStatus(404);
     }
@@ -67,10 +87,21 @@ router.post('/:id/book', (req, res, next) => {
   }
 });
 
-router.post('/:id/like', (req, res, next) => {
-  const user = users[req.params.id];
+/* Get bookings */
+router.get('/:id/bookings', async (req, res, next) => {
+  const user = await User.findById(req.params.id);
   if (user) {
-    const photo = photos.find(photo => photo.filename == req.body.filename);
+    res.send(user.tattooBookings);
+  } else {
+    res.sendStatus(404);
+  }
+});
+
+/* Like a photo */
+router.post('/:id/likes', async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+  if (user) {
+    const photo = await Photo.findById(req.body.photoId);
     if (!photo) {
       return res.sendStatus(404);
     }
@@ -81,14 +112,4 @@ router.post('/:id/like', (req, res, next) => {
   }
 });
 
-router.get('/:id/bookings', (req, res, next) => {
-  const user = users[req.params.id];
-  if (user) {
-    res.send(user.bookings);
-  } else {
-    res.sendStatus(404);
-  }
-});
-
 module.exports = router;
-
