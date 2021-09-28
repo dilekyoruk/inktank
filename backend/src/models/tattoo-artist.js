@@ -22,7 +22,7 @@ const tattooArtistSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Photo',
-      autopopulate: true,
+      autopopulate: { maxDepth: 1 },
     },
   ],
   followers: [
