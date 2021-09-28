@@ -1,25 +1,25 @@
 <script>
-import UserCard from '@/components/user-card.vue';
+import TatooArtistCard from '@/components/tattoo-artist-card.vue';
 import { mapActions } from 'vuex';
 
 export default {
-  name: 'UserDetail',
-  components: { UserCard },
+  name: 'TattooArtistDetail',
+  components: { TatooArtistCard },
   data() {
     return {
-      user: null,
+      tattooArtist: null,
     };
   },
   async created() {
-    this.user = await this.fetchUser(this.$route.params.id);
+    this.tattooArtist = await this.fetchTattooArtist(this.$route.params.id);
   },
   methods: {
-    ...mapActions(['fetchUser']),
+    ...mapActions(['fetchTattooArtist']),
   },
 };
 </script>
 <template lang="pug">
  .about
-    h1 This is a user detail
-    UserCard(:user="user" v-if="user")
+    h1 This is a tattoo artist detail
+    TatooArtistCard(:tattooArtist="tattooArtist" v-if="tattooArtist")
 </template>
