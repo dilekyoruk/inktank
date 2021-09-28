@@ -1,10 +1,10 @@
 <script>
 // @ is an alias to /src
-import axios from 'axios';
 import UserCard from '@/components/user-card.vue';
+import { mapActions } from 'vuex';
 
 export default {
-  name: 'Home',
+  name: 'UserList',
   components: {
     UserCard,
   },
@@ -14,9 +14,10 @@ export default {
     };
   },
   async created() {
-    const usersRequest = await axios.get('/api/users');
-
-    this.users = usersRequest.data;
+    this.users = await this.fetchUsers();
+  },
+  methods: {
+    ...mapActions(['fetchUsers']),
   },
 };
 </script>
@@ -24,5 +25,7 @@ export default {
 <template lang="pug">
   .home
     h1 Inktank
-    user-card(v-for="user in users" :user="user")
+    h2 Users
+    div(v-for="user in users" :user="user")
+      router-link(:to="`/users/${user._id}`") {{ user.name }}
 </template>
