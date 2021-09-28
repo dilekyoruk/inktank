@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "This is the graduation project for Coyotiv School of Software Engineering. Inktank is an app for tattoo enthusiasts to explore inspiring tattoos and meet tattoo artists and studios around the world.",
   "scripts": {
-    "test": "jest --testEnvironment=node --verbose --forceExit --watchAll --maxWorkers=1",
+    "test": "jest --testEnvironment=node --verbose --forceExit --maxWorkers=1",
+    "test-watch": "jest --testEnvironment=node --verbose --forceExit --watchAll --maxWorkers=1",
     "test-coverage": " jest --collect-coverage --testEnvironment=node --forceExit --maxWorkers=1",
     "lint": "lint-staged",
     "start": "node ./bin/www",
