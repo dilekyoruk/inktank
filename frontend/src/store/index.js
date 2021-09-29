@@ -20,6 +20,10 @@ export default new Vuex.Store({
       const tattooArtistsRequest = await axios.get('/api/tattoo-artists');
       return tattooArtistsRequest.data;
     },
+    async fetchTattooArtist(store, id) {
+      const tattooArtistRequest = await axios.get(`/api/tattoo-artists/${id}`);
+      return tattooArtistRequest.data;
+    },
   },
   modules: {},
 });
