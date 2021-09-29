@@ -26,6 +26,6 @@ export default {
   .home
     h1 Inktank
     h2 Tattoo Artists
-    div(v-for="tattooArtist in tattooArtists" :tattooArtist="tattooArtist")
+    div(v-for="tattooArtist in tattooArtists")
       router-link(:to="`/tattoo-artists/${tattooArtist._id}`") {{ tattooArtist.name }}
 </template>
