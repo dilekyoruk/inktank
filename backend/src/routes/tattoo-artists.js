@@ -35,11 +35,12 @@ router.get('/:id', async (req, res) => {
   res.send(tattooArtist);
 });
 
-/* ADD tattoo artist */
+/* ADD  tattoo artist */
 router.post('/', async (req, res) => {
-  const newTattooArtist = await TattooArtist.create(req.body);
-
-  res.send(newTattooArtist);
+  const newTattooArtist = new TattooArtist(req.body);
+  await newTattooArtist.setPassword('test');
+  await newTattooArtist.save();
+  res.sendStatus(201);
 });
 
 /* DELETE tattoo artist */

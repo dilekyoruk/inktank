@@ -26,9 +26,10 @@ router.get('/:id', async (req, res) => {
 
 /* ADD user */
 router.post('/', async (req, res) => {
-  const newUser = await User.create(req.body);
-
-  res.send(newUser);
+  const newUser = new User(req.body);
+  await newUser.setPassword('test');
+  await newUser.save();
+  res.sendStatus(201);
 });
 
 /* DELETE user */

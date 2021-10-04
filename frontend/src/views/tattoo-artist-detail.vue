@@ -1,10 +1,10 @@
 <script>
-import TatooArtistCard from '@/components/tattoo-artist-card.vue';
+import TattooArtistCard from '@/components/tattoo-artist-card.vue';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'TattooArtistDetail',
-  components: { TatooArtistCard },
+  components: { TattooArtistCard },
   data() {
     return {
       tattooArtist: null,
@@ -20,6 +20,6 @@ export default {
 </script>
 <template lang="pug">
  .about
-    h1 This is a tattoo artist detail
-    TatooArtistCard(:tattooArtist="tattooArtist" v-if="tattooArtist")
+    h3 Back to list
+    TattooArtistCard(:tattooArtist="tattooArtist" v-if="tattooArtist")
 </template>

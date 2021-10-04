@@ -3,10 +3,17 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const passport = require('passport');
+const User = require('./models/user');
+
+const mongooseConnection = require('./database-connection');
 
 // const { profile } = require('console');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
+const accountsRouter = require('./routes/accounts');
 const tattooArtistsRouter = require('./routes/tattoo-artists');
 require('./database-connection');
 
@@ -28,9 +35,37 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+app.use(
+  session({
+    secret: ['thisisnotasupersecuresecretsecret', 'thisisanothersupernotsosecretsecret'],
+    store: new MongoStore({ mongooseConnection, stringify: false }),
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      path: '/api',
+    },
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(User.createStrategy());
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api', (req, res, next) => {
+  req.session.viewCount = req.session.viewCount || 0;
+  // eslint-disable-next-line no-plusplus
+  req.session.viewCount++;
+  next();
+});
+
 app.use('/api/', indexRouter);
+app.use('/api/account', accountsRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/tattoo-artists', tattooArtistsRouter);
 app.use('/api/tattoo-artists/profile', express.static('uploads'));

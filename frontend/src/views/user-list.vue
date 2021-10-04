@@ -26,6 +26,6 @@ export default {
   .home
     h1 Inktank
     h2 Users
-    div(v-for="user in users" :user="user")
+    div(v-for="user in users")
       router-link(:to="`/users/${user._id}`") {{ user.name }}
 </template>

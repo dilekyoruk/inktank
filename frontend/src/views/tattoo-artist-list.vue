@@ -1,12 +1,12 @@
 <script>
 // @ is an alias to /src
-import TatooArtistCard from '@/components/tattoo-artist-card.vue';
+import TattooArtistCard from '@/components/tattoo-artist-card.vue';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'TattooArtistList',
   components: {
-    TatooArtistCard,
+    TattooArtistCard,
   },
   data() {
     return {
@@ -26,6 +26,6 @@ export default {
   .home
     h1 Inktank
     h2 Tattoo Artists
-    div(v-for="tattooArtist in tattooArtists" :tattooArtist="tattooArtist")
+    div(v-for="tattooArtist in tattooArtists")
       router-link(:to="`/tattoo-artists/${tattooArtist._id}`") {{ tattooArtist.name }}
 </template>

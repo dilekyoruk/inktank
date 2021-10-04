@@ -1,3 +1,13 @@
+<script>
+import axios from 'axios';
+export default {
+  name: 'App',
+  async created() {
+    console.log((await axios.get('/api/account/session')).data);
+  },
+};
+</script>
+
 <template lang="pug">
  #app
     #nav
