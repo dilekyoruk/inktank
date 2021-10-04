@@ -1,9 +1,14 @@
 <script>
-import axios from 'axios';
+import { mapActions } from 'vuex';
+
 export default {
   name: 'App',
-  async created() {
-    console.log((await axios.get('/api/account/session')).data);
+  methods: {
+    ...mapActions(['logout']),
+    async doLogout() {
+      await this.logout();
+      this.$router.push('/login');
+    },
   },
 };
 </script>
@@ -13,6 +18,7 @@ export default {
     #nav
       router-link(to="/") Home &nbsp
       router-link(to="/tattoo-artists") Tattoo Artists
+      a(@click="doLogout" href="#") Logout
     router-view
 
 </template>
