@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const autopopulate = require('mongoose-autopopulate');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const tattooArtistSchema = new mongoose.Schema({
   name: {
@@ -9,11 +10,6 @@ const tattooArtistSchema = new mongoose.Schema({
   },
   location: {
     type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    unique: true,
     required: true,
   },
   bio: String,
@@ -81,11 +77,14 @@ class TattooArtist {
   }
 
   get rating() {
-    if (!this.ratings) return 'No_rating';
+    if (!this.ratings.length) return 'No_rating';
     return this.ratings.reduce((a, b) => a + b) / this.ratings.length;
   }
 }
 
 tattooArtistSchema.loadClass(TattooArtist);
 tattooArtistSchema.plugin(autopopulate);
+tattooArtistSchema.plugin(passportLocalMongoose, {
+  usernameField: 'email',
+});
 module.exports = mongoose.model('TattooArtist', tattooArtistSchema);
