@@ -1,12 +1,12 @@
 <script>
 // @ is an alias to /src
-import TatooArtistCard from '@/components/tattoo-artist-card.vue';
+import TattooArtistCard from '@/components/tattoo-artist-card.vue';
 import { mapActions } from 'vuex';
 
 export default {
   name: 'TattooArtistList',
   components: {
-    TatooArtistCard,
+    TattooArtistCard,
   },
   data() {
     return {
