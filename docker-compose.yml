@@ -29,7 +29,7 @@ services:
       - "traefik.http.routers.backend.rule=(Host(`inktank.localhost`) && PathPrefix(`/api`))"
       - "traefik.http.routers.backend.entrypoints=web"
     ports:
-      - 3000
+      - 3000:3000
       - 35729:35729
     volumes:
       - ./backend/src:/app/src

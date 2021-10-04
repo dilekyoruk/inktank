@@ -1,17 +1,19 @@
 const express = require('express');
-const User = require('../models/user');
 const passport = require('passport');
+
+const User = require('../models/user');
+
 const router = express.Router();
 
-router.get('/session', (req, res, next) => {
-  res.send(req.session);
+router.get('/session', (req, res) => {
+  res.send(req.user);
 });
 
-/* router.post('/', async (req, res, next) => {
-  const { name, age, email, password } = req.body;
+router.post('/', async (req, res, next) => {
+  const { name, email, password } = req.body;
 
   try {
-    const user = await User.register({ name, age, email }, password);
+    const user = await User.register({ name, email }, password);
     res.send(user);
   } catch (e) {
     next(e);
@@ -30,6 +32,6 @@ router.delete('/session', async (req, res, next) => {
 
     return res.sendStatus(200);
   });
-}); */
+});
 
 module.exports = router;
