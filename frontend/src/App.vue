@@ -17,7 +17,10 @@ export default {
  #app
     #nav
       router-link(to="/") Home &nbsp
-      router-link(to="/tattoo-artists") Tattoo Artists
+      router-link(to="/tattoo-artists") Tattoo Artists &nbsp
+      router-link(to="/profile") Profile &nbsp
+      router-link(to="/login") Login &nbsp
+      router-link(to="/register") Register &nbsp
       a(@click="doLogout" href="#") Logout
     router-view
 
