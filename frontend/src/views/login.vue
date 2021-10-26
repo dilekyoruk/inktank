@@ -38,7 +38,7 @@ export default {
         input(v-model="email" id="email" type="email" placeholder="Your email" required)
       label(for="password") Password:&nbsp;
         input(v-model="password" id="password" type="password" placeholder="Your password" required)
-      input(type="submit" text="Log in")
+      input(type="submit" value="Log in")
     div(v-if="backendError") {{ backendError }}
     div Don't have an account yet? <router-link to="/register">Register</router-link>
 </template>
