@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import UserList from '../views/user-list.vue';
+import Profile from '../views/profile.vue';
 import TattooArtistList from '../views/tattoo-artist-list.vue';
 import Login from '../views/login.vue';
 import Register from '../views/register.vue';
@@ -14,8 +14,8 @@ export default function init(store) {
     routes: [
       {
         path: '/',
-        name: 'UserList',
-        component: UserList,
+        name: 'Profile',
+        component: Profile,
       },
       {
         path: '/users/:id',
@@ -46,7 +46,7 @@ export default function init(store) {
       {
         path: '/profile',
         name: 'profile',
-        component: UserList,
+        component: Profile,
         beforeEnter(to, from, next) {
           if (!store.state.user) return next('/login');
           return next();
