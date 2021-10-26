@@ -16,11 +16,11 @@ export default {
 <template lang="pug">
  #app
     #nav
-      router-link(to="/") Home &nbsp
-      router-link(to="/tattoo-artists") Tattoo Artists &nbsp
-      router-link(to="/profile") Profile &nbsp
-      router-link(to="/login") Login &nbsp
-      router-link(to="/register") Register &nbsp
+      router-link(to="/") Home
+      router-link(to="/tattoo-artists") Tattoo Artists
+      router-link(to="/profile") Profile
+      router-link(to="/login") Login
+      router-link(to="/register") Register
       a(@click="doLogout" href="#") Logout
     router-view
 
@@ -31,6 +31,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-align: center;
   color: #2c3e50;
 }
 
@@ -40,6 +41,7 @@ export default {
   a {
     font-weight: bold;
     color: #2c3e50;
+    margin: 0 1rem;
 
     &.router-link-exact-active {
       color: #42b983;
