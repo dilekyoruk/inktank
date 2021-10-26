@@ -28,7 +28,7 @@ services:
       - MONGODB_CONNECTION_STRING=mongodb://mongo/inktank
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=(Host(`inktank.localhost`) && PathPrefix(`/api`))"
+      - "traefik.http.routers.backend.rule=(Host(`inktank.localhost`) && (PathPrefix(`/api`) || PathPrefix(`/socket`)))"
       - "traefik.http.routers.backend.entrypoints=web"
     ports:
       - 3000:3000
